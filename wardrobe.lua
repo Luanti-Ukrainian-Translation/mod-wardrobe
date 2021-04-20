@@ -19,7 +19,7 @@ local function showForm(player, page)
    for i = s, e do
       local slot = i-s+1;
       local skin = wardrobe.skins[i];
-      local skinName = minetest.formspec_escape(wardrobe.skinNames[skin]);
+      local skinName = core.formspec_escape(wardrobe.skinNames[skin]);
       fs = fs.."button_exit[0,"..slot..";5,1;s:"..skin..";"..skinName.."]";
    end
    fs = fs.."label[2,9;Page "..page.."/"..nPages.."]";
@@ -30,11 +30,11 @@ local function showForm(player, page)
       fs = fs.."button_exit[4,9;1,1;n:p"..(page+1)..";next]";
    end
 
-   minetest.show_formspec(playerName, FORM_NAME, fs);
+   core.show_formspec(playerName, FORM_NAME, fs);
 end
 
 
-minetest.register_on_player_receive_fields(
+core.register_on_player_receive_fields(
    function(player, formName, fields)
       if formName ~= FORM_NAME then return; end
 
@@ -58,7 +58,7 @@ minetest.register_on_player_receive_fields(
    end);
 
 
-minetest.register_node(
+core.register_node(
    "wardrobe:wardrobe",
    {
       description = "Wardrobe",
@@ -79,7 +79,7 @@ minetest.register_node(
       end
    });
 
-minetest.register_craft(
+core.register_craft(
    {
       output = "wardrobe:wardrobe",
       recipe = { { "group:wood", "group:stick", "group:wood" },

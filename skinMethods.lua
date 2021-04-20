@@ -34,7 +34,7 @@ do  -- autodetect version of player mesh used by default
 end;
 
 local function changeWardrobeSkin(playerName, skin)
-   local player = minetest.get_player_by_name(playerName);
+   local player = core.get_player_by_name(playerName);
    if not player then
       error("unknown player '"..playerName.."'");
    end;
@@ -96,7 +96,7 @@ local SKIN_CHANGE_METHODS =
 local methods = SKIN_CHANGE_METHODS[SKIN_CHANGE_METHOD];
 if methods then
    for _, mod in ipairs(methods.required_mods) do
-      if not minetest.get_modpath(mod) then methods = nil; break; end;
+      if not core.get_modpath(mod) then methods = nil; break; end;
    end;
 end;
 if not methods then methods = SKIN_CHANGE_METHODS.default; end;

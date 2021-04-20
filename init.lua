@@ -1,15 +1,11 @@
-local MOD_NAME = minetest.get_current_modname();
-local MOD_PATH = minetest.get_modpath(MOD_NAME);
-local WORLD_PATH = minetest.get_worldpath();
 
-if MOD_NAME ~= "wardrobe" then
-   error("mod directory must be named 'wardrobe'");
-end
 wardrobe = {};
+wardrobe.name = core.get_current_modname();
+wardrobe.path = core.get_modpath(wardrobe.name)
 
-local initSkin, changeSkin, updateSkin = dofile(MOD_PATH.."/skinMethods.lua");
-dofile(MOD_PATH.."/storage.lua");
-dofile(MOD_PATH.."/wardrobe.lua");
+local initSkin, changeSkin, updateSkin = dofile(wardrobe.path.."/skinMethods.lua");
+dofile(wardrobe.path.."/storage.lua");
+dofile(wardrobe.path.."/wardrobe.lua");
 
 
 -- API
@@ -41,7 +37,7 @@ wardrobe.setPlayerSkin = updateSkin;
 function wardrobe.changePlayerSkin(playerName, skin)
    changeSkin(playerName, skin);
 
-   local player = minetest.get_player_by_name(playerName);
+   local player = core.get_player_by_name(playerName);
    if player then updateSkin(player); end;
 end
 
@@ -50,9 +46,9 @@ wardrobe.storage.loadSkins();
 wardrobe.storage.loadPlayerSkins();
 
 if initSkin then
-   minetest.register_on_joinplayer(
+   core.register_on_joinplayer(
       function(player)
-         minetest.after(1, initSkin, player)
+         core.after(1, initSkin, player)
       end);
 end;
 

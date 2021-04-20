@@ -1,13 +1,11 @@
-wardrobe = wardrobe or {};
+
 wardrobe.storage = wardrobe.storage or {};
 
 
-local MOD_NAME = minetest.get_current_modname();
-local MOD_PATH = minetest.get_modpath(MOD_NAME);
-local WORLD_PATH = minetest.get_worldpath();
+local world_path = core.get_worldpath();
 
-local SKIN_FILES = { MOD_PATH.."/skins.txt", WORLD_PATH.."/skins.txt" };
-local PLAYER_SKIN_DB = WORLD_PATH.."/playerSkins.txt";
+local SKIN_FILES = { wardrobe.path.."/skins.txt", world_path.."/skins.txt" };
+local PLAYER_SKIN_DB = world_path.."/playerSkins.txt";
 
 
 local function removePrefix(str, prefix)
@@ -127,7 +125,7 @@ function wardrobe.storage.loadSkins()
 
          name = removeSuffix(
                    removePrefix(
-                      removePrefix(skin, MOD_NAME.."_"),
+                      removePrefix(skin, wardrobe.name.."_"),
                       "skin_"),
                    ".png");
 
