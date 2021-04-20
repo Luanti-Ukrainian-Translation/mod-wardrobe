@@ -1,11 +1,6 @@
 
-wardrobe.storage = wardrobe.storage or {};
-
-
-local world_path = core.get_worldpath();
-
-local SKIN_FILES = { wardrobe.path.."/skins.txt", world_path.."/skins.txt" };
-local PLAYER_SKIN_DB = world_path.."/playerSkins.txt";
+wardrobe.skins = {}
+wardrobe.skinNames = {}
 
 
 local function removePrefix(str, prefix)
@@ -114,8 +109,10 @@ end
 --- Loads skin names from skin files, storing the result in wardrobe.skins and
  -- wardrobe.skinNames.
  --
-function wardrobe.storage.loadSkins()
-   local skins, skinNames = loadSkinsFromFiles(SKIN_FILES);
+function wardrobe.loadSkins(skin_files)
+   skin_files = skin_files or wardrobe.skin_files
+
+   local skins, skinNames = loadSkinsFromFiles(skin_files);
 
    for i, skin in ipairs(skins) do
       local name = skinNames[skin];
@@ -139,22 +136,69 @@ function wardrobe.storage.loadSkins()
       skinNames[skin] = name;
    end
 
-   table.sort(skins,
-              function(sL, sR)
-                 return skinNames[sL] < skinNames[sR];
-              end);
+   table.sort(skins, function(sL, sR)
+      return skinNames[sL] < skinNames[sR];
+   end);
 
+   -- overwrite registered skins
    wardrobe.skins = skins;
    wardrobe.skinNames = skinNames;
+end
+
+--- Loads additional skins from a file.
+--
+--  @function wardrobe.registerSkinFiles
+--  @param skin_files
+function wardrobe.registerSkinFiles(skin_files)
+   if type(skin_files) == "string" then
+      skin_files = {skin_files,}
+   end
+
+   local skins, skinNames = loadSkinsFromFiles(skin_files);
+
+   for i, skin in ipairs(skins) do
+      local name = skinNames[skin];
+
+      if not name then
+         local s, e;
+
+         name = removeSuffix(
+                   removePrefix(
+                      removePrefix(skin, wardrobe.name.."_"),
+                      "skin_"),
+                   ".png");
+
+         if name == "" then
+            name = skin;
+         else
+            name = string.gsub(name, "_", " ");
+         end
+      end
+
+      skinNames[skin] = name;
+   end
+
+   -- add to registered skins
+   for _, sk in ipairs(skins) do
+      table.insert(wardrobe.skins, sk)
+   end
+   for _, sk in ipairs(skinNames) do
+      table.insert(wardrobe.skinNames, sk)
+   end
+
+   table.sort(wardrobe.skins, function(sL, sR)
+      return wardrobe.skinNames[sL] < wardrobe.skinNames[sR];
+   end);
 end
 
 --- Parses the player skins database file and stores the result in
  -- wardrobe.playerSkins.
  --
-function wardrobe.storage.loadPlayerSkins()
+function wardrobe.loadPlayerSkins(player_skin_db)
+   player_skin_db = player_skin_db or wardrobe.player_skin_db
    local playerSkins = {};
 
-   local file = io.open(PLAYER_SKIN_DB, "r");
+   local file = io.open(player_skin_db, "r");
    if file then
       for line in file:lines() do
          local name, skin = parsePlayerSkinLine(line);
@@ -170,8 +214,10 @@ end
 
 --- Writes wardrobe.playerSkins to the player skins database file.
  --
-function wardrobe.storage.savePlayerSkins()
-   local file = io.open(PLAYER_SKIN_DB, "w");
+function wardrobe.savePlayerSkins(player_skin_db)
+   player_skin_db = player_skin_db or wardrobe.player_skin_db
+
+   local file = io.open(player_skin_db, "w");
    if not file then error("Couldn't write file '"..filePath.."'"); end
 
    for name, skin in pairs(wardrobe.playerSkins) do

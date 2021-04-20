@@ -43,7 +43,7 @@ local function changeWardrobeSkin(playerName, skin)
    end;
 
    wardrobe.playerSkins[playerName] = skin;
-   wardrobe.storage.savePlayerSkins();
+   wardrobe.savePlayerSkins();
 end;
 
 local function defaultUpdateSkin(player)

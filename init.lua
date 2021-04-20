@@ -1,7 +1,12 @@
 
+local world_path = core.get_worldpath();
+
 wardrobe = {};
 wardrobe.name = core.get_current_modname();
 wardrobe.path = core.get_modpath(wardrobe.name)
+wardrobe.player_skin_db = world_path.."/playerSkins.txt"
+wardrobe.skin_files = {wardrobe.path.."/skins.txt", world_path.."/skins.txt"};
+wardrobe.playerSkins = {}
 
 local initSkin, changeSkin, updateSkin = dofile(wardrobe.path.."/skinMethods.lua");
 dofile(wardrobe.path.."/storage.lua");
@@ -42,8 +47,8 @@ function wardrobe.changePlayerSkin(playerName, skin)
 end
 
 
-wardrobe.storage.loadSkins();
-wardrobe.storage.loadPlayerSkins();
+wardrobe.loadSkins();
+wardrobe.loadPlayerSkins();
 
 if initSkin then
    core.register_on_joinplayer(
