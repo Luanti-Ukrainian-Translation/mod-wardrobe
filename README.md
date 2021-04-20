@@ -76,7 +76,7 @@ specified or what name it was given.
 
 Required Minetest Version: >=0.5.0
 
-Dependencies: default, wool (both included in minetest_game)
+Dependencies: default, player_api, wool (included in minetest_game)
 
 Recipies:
 
