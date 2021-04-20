@@ -8,6 +8,7 @@ wardrobe.player_skin_db = world_path.."/playerSkins.txt"
 wardrobe.skin_files = {wardrobe.path.."/skins.txt", world_path.."/skins.txt"};
 wardrobe.playerSkins = {}
 
+dofile(wardrobe.path.."/settings.lua")
 local initSkin, changeSkin, updateSkin = dofile(wardrobe.path.."/skinMethods.lua");
 dofile(wardrobe.path.."/storage.lua");
 dofile(wardrobe.path.."/wardrobe.lua");

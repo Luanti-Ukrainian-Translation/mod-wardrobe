@@ -1,5 +1,4 @@
 local FORM_NAME = "wardrobe_wardrobeSkinForm";
-local SKINS_PER_PAGE = 8;
 
 
 local function showForm(player, page)
@@ -8,11 +7,11 @@ local function showForm(player, page)
 
    local n = #wardrobe.skins;
    if n <= 0 then return; end
-   local nPages = math.ceil(n/SKINS_PER_PAGE);
+   local nPages = math.ceil(n/wardrobe.skins_per_page);
 
    if not page or page > nPages then page = 1; end
-   local s = 1 + SKINS_PER_PAGE*(page-1);
-   local e = math.min(s+SKINS_PER_PAGE-1, n);
+   local s = 1 + wardrobe.skins_per_page*(page-1);
+   local e = math.min(s+wardrobe.skins_per_page-1, n);
 
    local fs = "size[5,10]";
    fs = fs.."label[0,0;Change Into:]";
