@@ -107,9 +107,31 @@ local function loadSkinsFromFiles(filePaths)
 	return keyList, values;
 end
 
+--- Organizes outfit names alphabetically.
+--
+--  @function wardrobe.sortNames
+function wardrobe.sortNames()
+	table.sort(wardrobe.skins, function(sL, sR)
+		return wardrobe.skinNames[sL] < wardrobe.skinNames[sR];
+	end);
+end
+
+--- Registers a single skin.
+--
+--  Does not sort automatically.
+--
+--  @function wardrobe.registerSkin
+--  @param k Texture file name
+--  @param v Name to display in wardrobe
+function wardrobe.registerSkin(k, v)
+	table.insert(wardrobe.skins, k)
+	wardrobe.skinNames[k] = v
+end
+
 --- Loads skin names from skin files, storing the result in wardrobe.skins and
  -- wardrobe.skinNames.
  --
+ -- Overwrites any previously registered skins.
 function wardrobe.loadSkins(skin_files)
 	skin_files = skin_files or wardrobe.skin_files
 
@@ -137,13 +159,11 @@ function wardrobe.loadSkins(skin_files)
 		skinNames[skin] = name;
 	end
 
-	table.sort(skins, function(sL, sR)
-		return skinNames[sL] < skinNames[sR];
-	end);
-
 	-- overwrite registered skins
 	wardrobe.skins = skins;
 	wardrobe.skinNames = skinNames;
+
+	wardrobe.sortNames()
 end
 
 --- Loads additional skins from a file.
@@ -181,13 +201,14 @@ function wardrobe.registerSkinFiles(skin_files)
 
 	-- add to registered skins
 	for _, sk in ipairs(skins) do
+		--[[
 		table.insert(wardrobe.skins, sk)
-	  wardrobe.skinNames[sk] = skinNames[sk]
+		wardrobe.skinNames[sk] = skinNames[sk]
+		]]
+		wardrobe.registerSkin(sk, skinNames[sk])
 	end
 
-	table.sort(wardrobe.skins, function(sL, sR)
-		return wardrobe.skinNames[sL] < wardrobe.skinNames[sR];
-	end);
+	wardrobe.sortNames()
 end
 
 --- Parses the player skins database file and stores the result in
