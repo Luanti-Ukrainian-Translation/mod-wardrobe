@@ -74,13 +74,14 @@ end
  --         values.
  --
 local function loadSkinsFromFiles(filePaths)
-   local normKeys, negKeys, values = {}, {}, {}
+   local normKeys, values, negKeys = {}, {}, {}
 
    for _, filePath in ipairs(filePaths) do
       local file = io.open(filePath, "r");
       if file then
          for line in file:lines() do
             local k, v, n = parseSkinLine(line)
+
             if k then
                if n then
                   normKeys[k] = nil;
@@ -181,9 +182,7 @@ function wardrobe.registerSkinFiles(skin_files)
    -- add to registered skins
    for _, sk in ipairs(skins) do
       table.insert(wardrobe.skins, sk)
-   end
-   for _, sk in ipairs(skinNames) do
-      table.insert(wardrobe.skinNames, sk)
+	  wardrobe.skinNames[sk] = skinNames[sk]
    end
 
    table.sort(wardrobe.skins, function(sL, sR)
