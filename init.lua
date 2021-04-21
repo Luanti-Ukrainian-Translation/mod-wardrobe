@@ -41,10 +41,10 @@ wardrobe.setPlayerSkin = updateSkin;
  --    Name of the skin.
  --
 function wardrobe.changePlayerSkin(playerName, skin)
-   changeSkin(playerName, skin);
+	changeSkin(playerName, skin);
 
-   local player = core.get_player_by_name(playerName);
-   if player then updateSkin(player); end;
+	local player = core.get_player_by_name(playerName);
+	if player then updateSkin(player); end;
 end
 
 
@@ -52,16 +52,16 @@ wardrobe.loadSkins();
 wardrobe.loadPlayerSkins();
 
 if initSkin then
-   core.register_on_joinplayer(
-      function(player)
-         core.after(1, initSkin, player)
-      end);
+	core.register_on_joinplayer(
+		function(player)
+			core.after(1, initSkin, player)
+		end);
 end;
 
 if not changeSkin then
-   error("No wardrobe skin change method registered.  Check skinMethods.lua.");
+	error("No wardrobe skin change method registered.  Check skinMethods.lua.");
 end;
 if not updateSkin then
-   error("No wardrobe skin update method registered.  Check skinMethods.lua.");
+	error("No wardrobe skin update method registered.  Check skinMethods.lua.");
 end;
 

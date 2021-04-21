@@ -4,64 +4,64 @@ wardrobe.skinNames = {}
 
 
 local function removePrefix(str, prefix)
-   local n = #prefix;
-   if #str >= n and string.sub(str, 1, n) == prefix then
-      return string.sub(str, n+1);
-   else
-      return str;
-   end
+	local n = #prefix;
+	if #str >= n and string.sub(str, 1, n) == prefix then
+		return string.sub(str, n+1);
+	else
+		return str;
+	end
 end
 
 local function removeSuffix(str, suffix)
-   local n = #suffix;
-   if #str >= n and string.sub(str, -n, -1) == suffix then
-      return string.sub(str, 1, -(n+1));
-   else
-      return str;
-   end
+	local n = #suffix;
+	if #str >= n and string.sub(str, -n, -1) == suffix then
+		return string.sub(str, 1, -(n+1));
+	else
+		return str;
+	end
 end
 
 local function trimTail(str)
-   local e = string.find(str, "%s+$");
-   return (e and string.sub(str, e-1)) or str;
+	local e = string.find(str, "%s+$");
+	return (e and string.sub(str, e-1)) or str;
 end
 
 local function parsePlayerSkinLine(line)
-   local k, v;
-   local p = string.find(line, "%S");
-   if p and not string.find(line, "^%-%-", p) then
-      local ss, se = string.find(line, "%s*:%s*", p);
-      if ss then
-         k = string.sub(line, p, ss-1);
-         v = trimTail(string.sub(line, se+1));
-         if k == "" then k = nil; end
-         if v == "" then v = nil; end
-      end
-   end
-   return k, v;
+	local k, v;
+	local p = string.find(line, "%S");
+	if p and not string.find(line, "^%-%-", p) then
+		local ss, se = string.find(line, "%s*:%s*", p);
+		if ss then
+			k = string.sub(line, p, ss-1);
+			v = trimTail(string.sub(line, se+1));
+			if k == "" then k = nil; end
+			if v == "" then v = nil; end
+		end
+	end
+	return k, v;
 end
 
 local function parseSkinLine(line)
-   local k, v, n, e;
+	local k, v, n, e;
 
-   local p = string.find(line, "%S");
-   if p then
-      n, e = string.find(line, "^%-%-?", p);
-      if not n or n == e then
-         if n then p = n+1; end
-         local ss, se = string.find(line, "%s*:%s*", p);
-         if ss then
-            k = string.sub(line, p, ss-1);
-            v = trimTail(string.sub(line, se+1));
-            if v == "" then v = nil; end
-         else
-            k = trimTail(string.sub(line, p));
-         end
-         if k == "" then k = nil; end
-      end
-   end
+	local p = string.find(line, "%S");
+	if p then
+		n, e = string.find(line, "^%-%-?", p);
+		if not n or n == e then
+			if n then p = n+1; end
+			local ss, se = string.find(line, "%s*:%s*", p);
+			if ss then
+				k = string.sub(line, p, ss-1);
+				v = trimTail(string.sub(line, se+1));
+				if v == "" then v = nil; end
+			else
+				k = trimTail(string.sub(line, p));
+			end
+			if k == "" then k = nil; end
+		end
+	end
 
-   return k, v, n;
+	return k, v, n;
 end
 
 --- Parses the files with the given paths for key/value pairs.  Once a key is
@@ -74,76 +74,76 @@ end
  --         values.
  --
 local function loadSkinsFromFiles(filePaths)
-   local normKeys, values, negKeys = {}, {}, {}
+	local normKeys, values, negKeys = {}, {}, {}
 
-   for _, filePath in ipairs(filePaths) do
-      local file = io.open(filePath, "r");
-      if file then
-         for line in file:lines() do
-            local k, v, n = parseSkinLine(line)
+	for _, filePath in ipairs(filePaths) do
+		local file = io.open(filePath, "r");
+		if file then
+			for line in file:lines() do
+				local k, v, n = parseSkinLine(line)
 
-            if k then
-               if n then
-                  normKeys[k] = nil;
-                  values[k] = nil;
-                  negKeys[k] = k;
-               elseif not negKeys[k] then
-                  normKeys[k] = k;
-                  if v then
-                     values[k] = v;
-                  end
-               end
-            end
-         end
-         file:close()
-      end
-   end
+				if k then
+					if n then
+						normKeys[k] = nil;
+						values[k] = nil;
+						negKeys[k] = k;
+					elseif not negKeys[k] then
+						normKeys[k] = k;
+						if v then
+							values[k] = v;
+						end
+					end
+				end
+			end
+			file:close()
+		end
+	end
 
-   local keyList = {};
-   for k in pairs(normKeys) do
-      table.insert(keyList, k);
-   end
+	local keyList = {};
+	for k in pairs(normKeys) do
+		table.insert(keyList, k);
+	end
 
-   return keyList, values;
+	return keyList, values;
 end
 
 --- Loads skin names from skin files, storing the result in wardrobe.skins and
  -- wardrobe.skinNames.
  --
 function wardrobe.loadSkins(skin_files)
-   skin_files = skin_files or wardrobe.skin_files
+	skin_files = skin_files or wardrobe.skin_files
 
-   local skins, skinNames = loadSkinsFromFiles(skin_files);
+	local skins, skinNames = loadSkinsFromFiles(skin_files);
 
-   for i, skin in ipairs(skins) do
-      local name = skinNames[skin];
+	for i, skin in ipairs(skins) do
+		local name = skinNames[skin];
 
-      if not name then
-         local s, e;
+		if not name then
+			local s, e;
 
-         name = removeSuffix(
-                   removePrefix(
-                      removePrefix(skin, wardrobe.name.."_"),
-                      "skin_"),
-                   ".png");
+			name = removeSuffix(
+						 removePrefix(
+							 removePrefix(skin, wardrobe.name.."_"),
+							 "skin_"),
+						 ".png");
 
-         if name == "" then
-            name = skin;
-         else
-            name = string.gsub(name, "_", " ");
-         end
-      end
+			if name == "" then
+				name = skin;
+			else
+				name = string.gsub(name, "_", " ");
+			end
+		end
 
-      skinNames[skin] = name;
-   end
+		skinNames[skin] = name;
+	end
 
-   table.sort(skins, function(sL, sR)
-      return skinNames[sL] < skinNames[sR];
-   end);
+	table.sort(skins, function(sL, sR)
+		return skinNames[sL] < skinNames[sR];
+	end);
 
-   -- overwrite registered skins
-   wardrobe.skins = skins;
-   wardrobe.skinNames = skinNames;
+	-- overwrite registered skins
+	wardrobe.skins = skins;
+	wardrobe.skinNames = skinNames;
 end
 
 --- Loads additional skins from a file.
@@ -151,77 +151,77 @@ end
 --  @function wardrobe.registerSkinFiles
 --  @param skin_files
 function wardrobe.registerSkinFiles(skin_files)
-   if type(skin_files) == "string" then
-      skin_files = {skin_files,}
-   end
+	if type(skin_files) == "string" then
+		skin_files = {skin_files,}
+	end
 
-   local skins, skinNames = loadSkinsFromFiles(skin_files);
+	local skins, skinNames = loadSkinsFromFiles(skin_files);
 
-   for i, skin in ipairs(skins) do
-      local name = skinNames[skin];
+	for i, skin in ipairs(skins) do
+		local name = skinNames[skin];
 
-      if not name then
-         local s, e;
+		if not name then
+			local s, e;
 
-         name = removeSuffix(
-                   removePrefix(
-                      removePrefix(skin, wardrobe.name.."_"),
-                      "skin_"),
-                   ".png");
+			name = removeSuffix(
+						 removePrefix(
+							 removePrefix(skin, wardrobe.name.."_"),
+							 "skin_"),
+						 ".png");
 
-         if name == "" then
-            name = skin;
-         else
-            name = string.gsub(name, "_", " ");
-         end
-      end
+			if name == "" then
+				name = skin;
+			else
+				name = string.gsub(name, "_", " ");
+			end
+		end
 
-      skinNames[skin] = name;
-   end
+		skinNames[skin] = name;
+	end
 
-   -- add to registered skins
-   for _, sk in ipairs(skins) do
-      table.insert(wardrobe.skins, sk)
+	-- add to registered skins
+	for _, sk in ipairs(skins) do
+		table.insert(wardrobe.skins, sk)
 	  wardrobe.skinNames[sk] = skinNames[sk]
-   end
+	end
 
-   table.sort(wardrobe.skins, function(sL, sR)
-      return wardrobe.skinNames[sL] < wardrobe.skinNames[sR];
-   end);
+	table.sort(wardrobe.skins, function(sL, sR)
+		return wardrobe.skinNames[sL] < wardrobe.skinNames[sR];
+	end);
 end
 
 --- Parses the player skins database file and stores the result in
  -- wardrobe.playerSkins.
  --
 function wardrobe.loadPlayerSkins(player_skin_db)
-   player_skin_db = player_skin_db or wardrobe.player_skin_db
-   local playerSkins = {};
+	player_skin_db = player_skin_db or wardrobe.player_skin_db
+	local playerSkins = {};
 
-   local file = io.open(player_skin_db, "r");
-   if file then
-      for line in file:lines() do
-         local name, skin = parsePlayerSkinLine(line);
-         if name then
-            playerSkins[name] = skin;
-         end
-      end
-      file:close();
-   end
+	local file = io.open(player_skin_db, "r");
+	if file then
+		for line in file:lines() do
+			local name, skin = parsePlayerSkinLine(line);
+			if name then
+				playerSkins[name] = skin;
+			end
+		end
+		file:close();
+	end
 
-   wardrobe.playerSkins = playerSkins;
+	wardrobe.playerSkins = playerSkins;
 end
 
 --- Writes wardrobe.playerSkins to the player skins database file.
  --
 function wardrobe.savePlayerSkins(player_skin_db)
-   player_skin_db = player_skin_db or wardrobe.player_skin_db
+	player_skin_db = player_skin_db or wardrobe.player_skin_db
 
-   local file = io.open(player_skin_db, "w");
-   if not file then error("Couldn't write file '"..filePath.."'"); end
+	local file = io.open(player_skin_db, "w");
+	if not file then error("Couldn't write file '"..filePath.."'"); end
 
-   for name, skin in pairs(wardrobe.playerSkins) do
-      file:write(name, ":", skin, "\n");
-   end
+	for name, skin in pairs(wardrobe.playerSkins) do
+		file:write(name, ":", skin, "\n");
+	end
 
-   file:close();
+	file:close();
 end
