@@ -118,3 +118,12 @@ Version 1.1
 * Auto-detection of player mesh name (thank you indriApollo).
 * Removed warning caused by access of uninitialized global variale (even though
   it was just a check for nil).
+
+Version 1.2
+
+* Released 2021-04-20
+* License changed to MIT.
+* Added player_api as dependency.
+* External mods can register skins.
+* Skins can be registered individually from within mod code.
+* Number of displayed skins can be set in server configuration file.
