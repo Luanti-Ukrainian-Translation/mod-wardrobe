@@ -1,0 +1,3 @@
+
+TODO:
+- make wool optional dependency (required for craft only)
