@@ -15,8 +15,6 @@ core.register_on_player_receive_fields(
 					wardrobe.show_formspec(player, tonumber(string.sub(value, 2)));
 					return;
 				elseif action == "s" then
-					-- make sure we're using the correct model
-					player_api.set_model(player, "character.b3d")
 					wardrobe.changePlayerSkin(playerName, value);
 					return;
 				end
