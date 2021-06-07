@@ -103,5 +103,5 @@ specified or what name it was given.
 ### Links:
 
 - [Git Repo](https://github.com/AntumMT/mod-wardrobe)
-- [Changelog](changelot.txt)
+- [Changelog](changelog.txt)
 - [TODO](TODO.txt)
