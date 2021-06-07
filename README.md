@@ -4,12 +4,9 @@
 
 Forked from [prestidigitator's wardrobe mod](https://forum.minetest.net/viewtopic.php?t=9680).
 
-This mod provides a very simple way to change the skin on the default character
-mesh.  Unlike other skin-changing mods out there, it does not attempt to change
-the character mesh, does not provide for the old 2D billboard-type character
-appearance, and does not depend on any kind of inventory extension mods.  It
-also does not rely on running external scripts, downloading skins from a
-server, or anything of that nature.
+Provides a simple way to change skins on the default character mesh.
+
+![screenshot](screenshot.png)
 
 Changing skins is done via a new "wardrobe" node, which brings up a form with
 skin names when you right-click on it (like a chest or furnace).  Choosing a
