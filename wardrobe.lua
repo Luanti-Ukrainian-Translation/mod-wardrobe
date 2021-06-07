@@ -24,7 +24,7 @@ core.register_on_player_receive_fields(
 
 
 core.register_node(
-	"wardrobe:wardrobe",
+	wardrobe.name .. ":wardrobe",
 	{
 		description = "Wardrobe",
 		paramtype2 = "facedir",
@@ -44,12 +44,21 @@ core.register_node(
 		end
 	});
 
-core.register_craft(
-	{
-		output = "wardrobe:wardrobe",
-		recipe = {
-			{ "group:wood", "group:stick", "group:wood" },
-			{ "group:wood", "group:wool",  "group:wood" },
-			{ "group:wood", "group:wool",  "group:wood" },
-		}
-	});
+local recipe = {
+	{"group:wood", "group:stick", "group:wood"},
+	{"group:wood", "group:wool",  "group:wood"},
+	{"group:wood", "group:wool",  "group:wood"},
+}
+
+core.clear_craft({recipe = recipe})
+
+core.register_craft({
+	output = wardrobe.name .. ":wardrobe",
+	recipe = recipe,
+});
+
+if core.registered_items["wardrobe:wardrobe"] then
+	core.unregister_item("wardrobe:wardrobe")
+end
+
+core.register_alias("wardrobe:wardrobe", wardrobe.name .. ":wardrobe")
