@@ -23,8 +23,12 @@ core.register_on_player_receive_fields(
 	end);
 
 
+if core.registered_items["wardrobe:wardrobe"] then
+	core.unregister_item("wardrobe:wardrobe")
+end
+
 core.register_node(
-	wardrobe.name .. ":wardrobe",
+	":wardrobe:wardrobe",
 	{
 		description = "Wardrobe",
 		paramtype2 = "facedir",
@@ -53,12 +57,6 @@ local recipe = {
 core.clear_craft({recipe = recipe})
 
 core.register_craft({
-	output = wardrobe.name .. ":wardrobe",
+	output = "wardrobe:wardrobe",
 	recipe = recipe,
 });
-
-if core.registered_items["wardrobe:wardrobe"] then
-	core.unregister_item("wardrobe:wardrobe")
-end
-
-core.register_alias("wardrobe:wardrobe", wardrobe.name .. ":wardrobe")
