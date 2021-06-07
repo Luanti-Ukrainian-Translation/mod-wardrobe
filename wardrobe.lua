@@ -1,28 +1,4 @@
 
-core.register_on_player_receive_fields(
-	function(player, formName, fields)
-		if formName ~= wardrobe.formspec_name then return end
-
-		local pname = player:get_player_name()
-		if not pname or pname == "" then return end
-
-		for fieldName in pairs(fields) do
-			if #fieldName > 2 then
-				local action = string.sub(fieldName, 1, 1)
-				local value = string.sub(fieldName, 3)
-
-				if action == "n" then
-					wardrobe.show_formspec(player, tonumber(string.sub(value, 2)))
-					return
-				elseif action == "s" then
-					wardrobe.changePlayerSkin(pname, value)
-					return
-				end
-			end
-		end
-	end)
-
-
 if core.registered_items["wardrobe:wardrobe"] then
 	core.unregister_item("wardrobe:wardrobe")
 end
