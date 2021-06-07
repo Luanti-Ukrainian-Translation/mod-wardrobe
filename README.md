@@ -91,7 +91,8 @@ specified or what name it was given.
 ### Licensing:
 
 - Code: [MIT](LICENSE.txt)
-- Textures: CC0
+- Textures by prestidigitator: CC0
+- *character-preview.png* created from [player_api](https://github.com/minetest/minetest_game/blob/master/mods/player_api/models/character.png): ([CC BY-SA 3.0](https://github.com/minetest/minetest_game/blob/master/mods/player_api/license.txt))
 
 ### Requirements:
 
