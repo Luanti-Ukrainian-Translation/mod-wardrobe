@@ -4,6 +4,9 @@
 --  default: 8
 wardrobe.skins_per_page = tonumber(core.settings:get("wardrobe.skins_per_page")) or 8
 
+--- Show preview images.
+wardrobe.previews = core.settings:get_bool("wardrobe.previews", true)
+
 
 -- 8 is max
 if wardrobe.skins_per_page > 8 then
