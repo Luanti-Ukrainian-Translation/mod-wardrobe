@@ -1,7 +1,8 @@
-# Wardrobe Minetest Mod
+## Wardrobe mod for Minetest
 
+### Description:
 
-Originally by [prestidigitator](https://forum.minetest.net/viewtopic.php?t=9680).
+Forked from [prestidigitator's wardrobe mod](https://forum.minetest.net/viewtopic.php?t=9680).
 
 This mod provides a very simple way to change the skin on the default character
 mesh.  Unlike other skin-changing mods out there, it does not attempt to change
@@ -33,9 +34,9 @@ higher resolution as long as they have an aspect ratio of 2:1.  The author of
 this mod created a very high resolution version of the default character and it
 works well (but has not been included to simplify mod licensing).
 
+### Usage:
 
----
-## Skins File Syntax
+#### Skins File Syntax:
 
 A comment line starts with two dashes (like in Lua), but must be the only thing
 on the line:
@@ -70,67 +71,36 @@ particular world), prepend a minus sign (-) to the line.  For example:
 would remove the "skin_other_texture_file_name.png" skin no matter where it was
 specified or what name it was given.
 
+#### Crafting:
 
----
-### Mod Details
+<details><summary>Spoiler:</summary>
 
-Required Minetest Version: >=0.5.0
-
-Dependencies: default, player_api, wool (included in minetest_game)
-
-Recipies:
-
-   * W - any wood (same kinds you can make a chest from)
-   * S - any stick
-   * L - any wool
+- W: any wood (same kinds you can make a chest from)
+- S: any stick
+- L: any wool
 
 ```
-   wardrobe:
-      W S W
-      W L W
-      W L W
+  wardrobe:
+    W S W
+    W L W
+    W L W
 ```
 
-Git Repo: https://github.com/AntumMT/mod-wardrobe
+</details>
 
+### Licensing:
 
----
-## Copyright and Licensing
+- Code: [MIT](LICENSE.txt)
+- Textures: CC0
 
-All contents, including source code, documentation, and images, are the
-original creations of the mod author.
+### Requirements:
 
-License: [MIT](LICENSE.txt)
+- Minetest v0.5.0
+- Depends: [default](https://github.com/minetest/minetest_game/tree/master/mods/default), [player_api](https://github.com/minetest/minetest_game/tree/master/mods/player_api)
+- Optional depends: [wool](https://github.com/minetest/minetest_game/tree/master/mods/wool) (craft recipe)
 
+### Links:
 
----
-## Change History
-
-Version 1.0
-
-* Released 2014-07-05
-* First working version
-
-Version 1.1
-
-* Released 2015-04-24
-* Removed farming as a dependency; wool is from wool.
-* Auto-detection of player mesh name (thank you indriApollo).
-* Removed warning caused by access of uninitialized global variale (even though
-  it was just a check for nil).
-
-Version 1.2
-
-* Released 2021-04-20
-* License changed to MIT.
-* Added player_api as dependency.
-* External mods can register skins.
-* Skins can be registered individually from within mod code.
-* Number of displayed skins can be set in server configuration file.
-* Keep default skin as first item.
-
-Version 1.3
-
-* Released 2021-04-22
-* Formspec doesn't close & re-open when changing page (fixes cursor being centered).
-* "prev" & "next" buttons cycle back to last & first page respectively.
+- [Git Repo](https://github.com/AntumMT/mod-wardrobe)
+- [Changelog](changelot.txt)
+- [TODO](TODO.txt)
