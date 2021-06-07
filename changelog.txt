@@ -1,0 +1,21 @@
+
+v1.4
+----
+- prev/next buttons placed closer together
+- added option to show previews
+
+v1.3
+----
+- renamed "default" label to "Sam"
+- optimized formspec:
+	- re-cycle through pages when reaching first or last page
+	- does not close & re-open each time prev/next pushed
+
+v1.2
+----
+- forked from prestidigitator's wardrobe mod
+- changed license to MIT
+- added player_api as dependency
+- added method to register skins
+- added option to set number of skins per page
+- default skin always listed first
