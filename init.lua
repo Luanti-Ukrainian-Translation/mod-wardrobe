@@ -28,7 +28,7 @@ local scripts = {
 	"settings",
 	"formspec",
 	"storage",
-	"wardrobe",
+	"node",
 }
 
 for _, script in ipairs(scripts) do
