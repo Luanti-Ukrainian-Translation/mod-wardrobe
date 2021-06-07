@@ -8,79 +8,87 @@ Provides a simple way to change skins on the default character mesh.
 
 ![screenshot](screenshot.png)
 
-Changing skins is done via a new "wardrobe" node, which brings up a form with
-skin names when you right-click on it (like a chest or furnace).  Choosing a
-skin instantly changes your character's appearance, and this change is kept if
-you log out (unless the skin is removed from the server, in which case your
-appearance will revert to the default when you log in).
-
-The list of skins is static and determined when the server starts based on two
-files: <modsPath>/wardrobe/skins.txt and <worldPath>/skins.txt.  Both files
-have the same syntax (see "Skins File Syntax" below).  The simplest way to add
-a skin is to either drop the image into the <modsPath>/wardrobe/textures
-directory or add them to a texture pack, then add the simple name of the
-texture file to one of these skins.txt files.
-
-For convenience, some SVG images have been included with this mod.  One
-("skinTemplate.svg") shows the exact layout of a Minetest skin for the default
-character model, and should be useful for creating new skins.  This layout is
-also (mostly?) compatible with Minecraft skins.  The others can be used to
-create higher resolution textures for the wardrobe object, in case you are
-using a texture pack with resolutions greater than 16x16.  Skins too may be
-higher resolution as long as they have an aspect ratio of 2:1.  The author of
-this mod created a very high resolution version of the default character and it
-works well (but has not been included to simplify mod licensing).
-
 ### Usage:
 
-#### Skins File Syntax:
+Changing skins is done via a "wardrobe" node, which brings up a form with skin names when you right-click on it. Choosing a skin instantly changes your character's appearance, and this change is kept if you log out.
 
-A comment line starts with two dashes (like in Lua), but must be the only thing
-on the line:
+#### Registering skins:
 
-   -- This is a comment and has no effect.
+There are two ways to register skins:
 
-Except for empty lines and comments, each line names a texture (file) and a
-name, separated by optional whitespace and a colon (:):
+1. adding the filenames to *skins.txt* located in this mod's directory or the world path (see "Skins file syntax" below)
+2. using the *wardrobe.registerSkin* method:
 
-   texture_file_name.png: My Skin
-   skin_other_texture_file_name.png: Other Skin
+`wardrobe.registerSkin(texture, displayname)`
 
-The first string (e.g. "texture_file_name.png") will be passed to the minetest
-API just like any other node or item texture.  Generally it is simply the whole
-file name of an image in a mod "texture" directory or texture pack.  The second
-string (e.g. "My Skin") is presented to the player in-world as the name of the
-texture.  If this name is omitted, as in:
+- *texture:* real filename of texture (e.g. "my_skin.png")
+- *displayname:* text shown to player (e.g. "My Skin")
 
-   texture_file_name.png
-   skin_other_texture_file_name.png
+Minetest recognizes skins located in a mod's *textures* sub-directory (e.g. *&lt;mod_path&gt;/textures*), *&lt;minetest_install&gt;/textures*, & textures installed to the current user's home directory:
 
-Then a name is constructed by removing any ".png" suffix any optional "skin_"
-or "wardrobe_skin_" prefix, and replacing underscores with spaces.  So the
-above skins would be named "texture file name" and "other texture file name",
-respectively.
+- on Linux/Unix-like systems, this is *~/.minetest/textures*
+- on Windows, this is *%AppData%/Minetest/textures* (only if built with *-DRUN_IN_PLACE=FALSE* flag)
 
-To remove a skin that was added elsewhere (for example, to a remove a skin in a
-particular world), prepend a minus sign (-) to the line.  For example:
+#### Skins file syntax:
 
-   -skin_other_texture_file_name.png
+A comment line starts with two dashes (like in Lua), but must be the only thing on the line:
 
-would remove the "skin_other_texture_file_name.png" skin no matter where it was
-specified or what name it was given.
+> `-- This is a comment and has no effect.`
+
+Except for empty lines and comments, each line names a texture (file) and a name, separated by optional whitespace and a colon (:):
+
+> `texture_file_name.png: My Skin`
+> `skin_other_texture_file_name.png: Other Skin`
+
+The first string (e.g. "texture_file_name.png") will be passed to the Minetest API just like any other node or item texture. Generally it is simply the whole file name of an image in a mod "texture" directory or texture pack. The second string (e.g. "My Skin") is presented to the player in-world as the name of the texture. If this name is omitted, as in:
+
+> `texture_file_name.png`
+> `skin_other_texture_file_name.png`
+
+Then a name is constructed by removing any ".png" suffix any optional "skin_" or "wardrobe_skin_" prefix, and replacing underscores with spaces. So the above skins would be named "texture file name" and "other texture file name", respectively.
+
+To remove a skin that was added elsewhere (for example, to remove a skin in a particular world), prepend a minus sign (-) to the line:
+
+> `-skin_other_texture_file_name.png`
+
+This would remove the "skin_other_texture_file_name.png" skin no matter where it was specified or what name it was given.
+
+#### Settings:
+
+```
+wardrobe.skins_per_page
+  - determines how many skins are shown on each page
+  - type:    int
+  - min:     1
+  - max:     8
+  - default: 8
+
+wardrobe.previews
+  - determines if preview images are shown in form
+  - type:    bool
+  - default: true
+```
 
 #### Crafting:
 
 <details><summary>Spoiler:</summary>
 
-- W: any wood (same kinds you can make a chest from)
-- S: any stick
-- L: any wool
-
+Key:
 ```
-  wardrobe:
-    W S W
-    W L W
-    W L W
+GW: any wood planks
+GS: any stick
+GL: any wool
+```
+
+Wardrobe node:
+```
+╔════╦════╦════╗
+║ GW ║ GS ║ GW ║
+╠════╬════╬════╣
+║ GW ║ GL ║ GW ║
+╠════╬════╬════╣
+║ GW ║ GL ║ GW ║
+╚════╩════╩════╝
 ```
 
 </details>
