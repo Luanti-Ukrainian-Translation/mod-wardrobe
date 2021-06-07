@@ -39,8 +39,8 @@ function wardrobe.show_formspec(player, page)
 		end
 
 		formspec = formspec
-			.. "button[0,9;1,1;n:p" .. tostring(page_prev) .. ";prev]"
-			.. "button[4,9;1,1;n:p" .. tostring(page_next) .. ";next]"
+			.. "button[1.5,9;1,1;n:p" .. tostring(page_prev) .. ";prev]"
+			.. "button[2.5,9;1,1;n:p" .. tostring(page_next) .. ";next]"
 
 	core.show_formspec(playerName, wardrobe.formspec_name, formspec)
 end
