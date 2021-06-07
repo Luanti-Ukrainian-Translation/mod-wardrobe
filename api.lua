@@ -269,3 +269,82 @@ function wardrobe.savePlayerSkins(player_skin_db)
 
 	file:close()
 end
+
+
+local use_3d_armor = core.get_modpath("3d_armor") ~= nil
+
+local playerMesh = "character.b3d"
+-- autodetect version of player mesh used by default
+if default and default.registered_player_models then
+	local haveCharName = false -- 'character.*' has priority
+	local name = nil
+	local nNames = 0
+
+	for k in pairs(default.registered_player_models) do
+		if string.find(k, "^character\\.[^\\.]+$") then
+			if haveCharName then
+				nNames = 2
+				break
+			end
+			name = k
+			nNames = 1
+			haveCharName = true
+		elseif not haveCharName then
+			name = k
+			nNames = nNames + 1
+		end
+	end
+
+	if nNames == 1 then playerMesh = name end
+end
+
+local function changeWardrobeSkin(playerName, skin)
+	local player = core.get_player_by_name(playerName)
+	if not player then
+		error("unknown player '" .. playerName .. "'")
+	end
+	if skin and not wardrobe.skinNames[skin] then
+		error("unknown skin '" .. skin .. "'")
+	end
+
+	wardrobe.playerSkins[playerName] = skin
+	wardrobe.savePlayerSkins()
+end
+
+function wardrobe.updatePlayerSkin(player)
+	if use_3d_armor then
+		armor:update_player_visuals(player)
+	else
+		local pname = player:get_player_name()
+		if not pname or pname == "" then return end
+
+		local skin = wardrobe.playerSkins[pname]
+		if not skin or not wardrobe.skinNames[skin] then return end
+
+		player:set_properties({
+			visual = "mesh",
+			visual_size = { x = 1, y = 1 },
+			mesh = playerMesh,
+			textures = { skin }
+		})
+	end
+end
+
+wardrobe.setPlayerSkin = wardrobe.updatePlayerSkin
+
+function wardrobe.changePlayerSkin(playerName, skin)
+	changeWardrobeSkin(playerName, skin)
+
+	if use_3d_armor then
+		armor.textures[playerName].skin = skin
+	end
+
+	local player = core.get_player_by_name(playerName)
+	if player then wardrobe.updatePlayerSkin(player) end
+end
+
+if not use_3d_armor then
+	core.register_on_joinplayer(function(player)
+		core.after(1, wardrobe.updatePlayerSkin, player)
+	end)
+end
