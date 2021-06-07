@@ -26,8 +26,8 @@ end
 
 local scripts = {
 	"settings",
+	"api",
 	"formspec",
-	"storage",
 	"node",
 }
 
