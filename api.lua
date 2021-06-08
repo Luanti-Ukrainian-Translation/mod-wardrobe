@@ -170,10 +170,10 @@ function wardrobe.loadSkins(skin_files)
 			local s, e
 
 			name = removeSuffix(
-						 removePrefix(
-							 removePrefix(skin, wardrobe.modname .. "_"),
-							 "skin_"),
-						 ".png")
+							removePrefix(
+								removePrefix(skin, wardrobe.modname .. "_"),
+								"skin_"),
+							".png")
 
 			if name == "" then
 				name = skin
@@ -211,10 +211,10 @@ function wardrobe.registerSkinFiles(skin_files)
 			local s, e
 
 			name = removeSuffix(
-						 removePrefix(
-							 removePrefix(skin, wardrobe.modname .. "_"),
-							 "skin_"),
-						 ".png")
+							removePrefix(
+								removePrefix(skin, wardrobe.modname .. "_"),
+								"skin_"),
+							".png")
 
 			if name == "" then
 				name = skin
@@ -323,9 +323,9 @@ function wardrobe.updatePlayerSkin(player)
 
 		player:set_properties({
 			visual = "mesh",
-			visual_size = { x = 1, y = 1 },
+			visual_size = {x=1, y=1},
 			mesh = playerMesh,
-			textures = { skin }
+			textures = {skin},
 		})
 	end
 end
