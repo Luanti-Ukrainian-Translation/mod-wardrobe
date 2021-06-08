@@ -271,8 +271,6 @@ function wardrobe.savePlayerSkins(player_skin_db)
 end
 
 
-local use_3d_armor = core.get_modpath("3d_armor") ~= nil
-
 local playerMesh = "character.b3d"
 -- autodetect version of player mesh used by default
 if default and default.registered_player_models then
@@ -312,7 +310,7 @@ local function changeWardrobeSkin(playerName, skin)
 end
 
 function wardrobe.updatePlayerSkin(player)
-	if use_3d_armor then
+	if wardrobe.use_3d_armor then
 		armor:update_player_visuals(player)
 	else
 		local pname = player:get_player_name()
@@ -335,7 +333,7 @@ wardrobe.setPlayerSkin = wardrobe.updatePlayerSkin
 function wardrobe.changePlayerSkin(playerName, skin)
 	changeWardrobeSkin(playerName, skin)
 
-	if use_3d_armor then
+	if wardrobe.use_3d_armor then
 		armor.textures[playerName].skin = skin
 	end
 
@@ -343,7 +341,7 @@ function wardrobe.changePlayerSkin(playerName, skin)
 	if player then wardrobe.updatePlayerSkin(player) end
 end
 
-if not use_3d_armor then
+if not wardrobe.use_3d_armor then
 	core.register_on_joinplayer(function(player)
 		core.after(1, wardrobe.updatePlayerSkin, player)
 	end)
