@@ -3,7 +3,7 @@ v1.4
 ----
 - prev/next buttons placed closer together
 - added option to show previews
-- renamed to "wardrobe_ad"
+- changed name to "wardrobe_ad" to distinguish from original mod
 
 v1.3
 ----
