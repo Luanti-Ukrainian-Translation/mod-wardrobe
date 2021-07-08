@@ -101,7 +101,7 @@ Wardrobe node:
 
 ### Requirements:
 
-- Minetest v0.5.0
+- Minetest minimum version: 5.0
 - Depends: [default](https://github.com/minetest/minetest_game/tree/master/mods/default), [player_api](https://github.com/minetest/minetest_game/tree/master/mods/player_api)
 - Optional depends: [wool](https://github.com/minetest/minetest_game/tree/master/mods/wool) (craft recipe)
 
