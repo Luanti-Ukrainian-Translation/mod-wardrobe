@@ -107,6 +107,8 @@ Wardrobe node:
 
 ### Links:
 
+- [![ContentDB](https://content.minetest.net/packages/AntumDeluge/wardrobe_ad/shields/title/)](https://content.minetest.net/packages/AntumDeluge/wardrobe_ad/)
+- [Forum](https://forum.minetest.net/viewtopic.php?t=26986)
 - [Git Repo](https://github.com/AntumMT/mod-wardrobe)
 - [Changelog](changelog.txt)
 - [TODO](TODO.txt)
