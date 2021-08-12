@@ -44,3 +44,29 @@ end
 
 wardrobe.loadSkins()
 wardrobe.loadPlayerSkins()
+
+local cached_textures = {}
+core.register_on_mods_loaded(function()
+	wardrobe.log("action", "checking cached skins ...")
+
+	for _, modname in ipairs(core.get_modnames()) do
+		local t_dir = core.get_modpath(modname) .. "/textures"
+		for _, png in ipairs(core.get_dir_list(t_dir, false)) do
+			if png:find("%.png$") then
+				cached_textures[png] = true
+			end
+		end
+	end
+
+	for idx = wardrobe.skin_count, 1, -1 do
+		local skin = wardrobe.skins[idx]
+		if not cached_textures[skin] then
+			wardrobe.log("error", "skin \"" .. skin .. "\" not found")
+			table.remove(wardrobe.skins, idx)
+			wardrobe.skinNames[skin] = nil
+			wardrobe.skin_count = wardrobe.skin_count-1
+		end
+	end
+
+	cached_textures = nil
+end)

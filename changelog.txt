@@ -4,6 +4,7 @@ next
 - included default player skin by Jordach
 - added localization support
 - added Spanish translation
+- skins are unregistered if their textures aren't cached
 
 
 v1.4
