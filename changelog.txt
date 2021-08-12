@@ -3,6 +3,7 @@ next
 ----
 - included default player skin by Jordach
 - added localization support
+- added Spanish translation
 
 
 v1.4

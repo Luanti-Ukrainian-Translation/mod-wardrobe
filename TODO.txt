@@ -1,5 +1,4 @@
 
 TODO:
 - use wdata or mod_storage for writing/reading world data
-- add Spanish translation
 - check cached skins after mods loaded
