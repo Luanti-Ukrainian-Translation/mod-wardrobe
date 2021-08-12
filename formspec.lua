@@ -62,7 +62,11 @@ function wardrobe.show_formspec(player, page)
 
 			formspec = formspec
 				.. "button_exit[" .. border_l .. "," .. addon+.5 ..";5,1;s:" .. s[1] .. ";" .. s[2] .. "]"
-				.. "image[" .. border_l+5 .. "," .. addon .. ";1,2;" .. preview .."]"
+
+			if wardrobe.cached_previews[s[1]] then
+				formspec = formspec
+					.. "image[" .. border_l+5 .. "," .. addon .. ";1,2;" .. preview .."]"
+			end
 
 			addon = addon + 2
 		end

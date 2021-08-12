@@ -11,6 +11,9 @@ wardrobe.playerSkins = {}
 
 wardrobe.use_3d_armor = core.get_modpath("3d_armor") ~= nil and core.global_exists("armor")
 
+-- suppresses showing preview if not cached
+wardrobe.cached_previews = {}
+
 function wardrobe.log(lvl, msg)
 	if not msg then
 		msg = lvl
@@ -65,6 +68,11 @@ core.register_on_mods_loaded(function()
 			table.remove(wardrobe.skins, idx)
 			wardrobe.skinNames[skin] = nil
 			wardrobe.skin_count = wardrobe.skin_count-1
+		end
+
+		local preview = skin:gsub("%.png$", "-preview.png")
+		if cached_textures[preview] then
+			wardrobe.cached_previews[skin] = true
 		end
 	end
 

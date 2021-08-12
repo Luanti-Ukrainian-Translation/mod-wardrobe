@@ -5,6 +5,7 @@ next
 - added localization support
 - added Spanish translation
 - skins are unregistered if their textures aren't cached
+- suppresses building placeholder if preview image isn't available
 
 
 v1.4
