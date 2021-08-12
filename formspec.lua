@@ -1,4 +1,6 @@
 
+local S = core.get_translator("wardrobe")
+
 wardrobe.formspec_name = "wardrobe_wardrobeSkinForm"
 
 function wardrobe.show_formspec(player, page)
@@ -32,8 +34,8 @@ function wardrobe.show_formspec(player, page)
 	local formspec
 	if not wardrobe.previews then
 		formspec = "size[5,10]"
-			.. "label[0,0;Change Into:]"
-			.. "label[1.8,0.5;Page " .. tostring(page) .. " / " .. tostring(page_count) .. "]"
+			.. "label[0,0;" .. S("Change Into:") .. "]"
+			.. "label[1.8,0.5;" .. S("Page @1", tostring(page) .. " / " .. tostring(page_count)) .. "]"
 
 		for idx, s in ipairs(skins) do
 			formspec = formspec
@@ -41,12 +43,12 @@ function wardrobe.show_formspec(player, page)
 		end
 
 		formspec = formspec
-			.. "button[1.5,9;1,1;n:p" .. tostring(page_prev) .. ";prev]"
-			.. "button[2.5,9;1,1;n:p" .. tostring(page_next) .. ";next]"
+			.. "button[1.5,9;1,1;n:p" .. tostring(page_prev) .. ";" .. S("<<") .. "]"
+			.. "button[2.5,9;1,1;n:p" .. tostring(page_next) .. ";" .. S(">>") .. "]"
 	else
 		formspec = "size[12,10]"
-			.. "label[0,0;Change Into:]"
-			.. "label[5.3,0.5;Page " .. tostring(page) .. " / " .. tostring(page_count) .. "]"
+			.. "label[0,0;" .. S("Change Into:") .. "]"
+			.. "label[5.3,0.5;" .. S("Page @1", tostring(page) .. " / " .. tostring(page_count)) .. "]"
 
 		local border_l = 0
 		local addon = 1
@@ -66,8 +68,8 @@ function wardrobe.show_formspec(player, page)
 		end
 
 		formspec = formspec
-			.. "button[5,9;1,1;n:p" .. tostring(page_prev) .. ";prev]"
-			.. "button[6,9;1,1;n:p" .. tostring(page_next) .. ";next]"
+			.. "button[5,9;1,1;n:p" .. tostring(page_prev) .. ";" .. S("<<") .. "]"
+			.. "button[6,9;1,1;n:p" .. tostring(page_next) .. ";" .. S(">>") .. "]"
 
 	end
 

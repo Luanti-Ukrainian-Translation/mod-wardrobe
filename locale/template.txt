@@ -1,0 +1,12 @@
+# textdomain:wardrobe
+
+# Translators:
+
+
+Wardrobe=
+Change Into:=
+Page @1=
+
+# formspec buttons
+<<=
+>>=

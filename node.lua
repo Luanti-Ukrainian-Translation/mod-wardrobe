@@ -1,10 +1,12 @@
 
+local S = core.get_translator("wardrobe")
+
 if core.registered_items["wardrobe:wardrobe"] then
 	core.unregister_item("wardrobe:wardrobe")
 end
 
 core.register_node(":wardrobe:wardrobe", {
-	description = "Wardrobe",
+	description = S("Wardrobe"),
 	paramtype2 = "facedir",
 	tiles = {
 		"wardrobe_wardrobe_topbottom.png",
