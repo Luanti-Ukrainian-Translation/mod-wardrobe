@@ -1,9 +1,15 @@
 
+next
+----
+- included default player skin by Jordach
+
+
 v1.4
 ----
 - prev/next buttons placed closer together
 - added option to show previews
 - changed name to "wardrobe_ad" to distinguish from original mod
+
 
 v1.3
 ----
@@ -11,6 +17,7 @@ v1.3
 - optimized formspec:
 	- re-cycle through pages when reaching first or last page
 	- does not close & re-open each time prev/next pushed (fixes cursor being centered)
+
 
 v1.2
 ----
@@ -25,12 +32,14 @@ v1.2
 
 --- wardrobe by prestidigitator ---
 
+
 v1.1
 ----
 - Released 2015-04-24
 - Removed farming as a dependency; wool is from wool.
 - Auto-detection of player mesh name (thank you indriApollo).
 - Removed warning caused by access of uninitialized global variale (even though it was just a check for nil).
+
 
 v1.0
 ----

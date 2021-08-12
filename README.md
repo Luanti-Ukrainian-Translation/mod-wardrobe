@@ -97,7 +97,7 @@ Wardrobe node:
 
 - Code: [MIT](LICENSE.txt)
 - Textures by prestidigitator: CC0
-- *character-preview.png* created from [player_api](https://github.com/minetest/minetest_game/blob/master/mods/player_api/models/character.png): ([CC BY-SA 3.0](https://github.com/minetest/minetest_game/blob/master/mods/player_api/license.txt))
+- *character.png* skin by Jordach (CC BY-SA 3.0) copied from [player_api](https://github.com/minetest/minetest_game/tree/master/mods/player_api)
 
 ### Requirements:
 
